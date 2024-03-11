@@ -21,8 +21,8 @@ Before using this script, ensure you have the following prerequisites:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/aashishchhabra/kafka-suite.git
-   cd kafka-suite
+   git clone https://github.com/aashishchhabra/kafka-tools.git
+   cd kafka-tools
 2. Ensure execute permissions for the script:
 
    ```bash
