@@ -31,9 +31,9 @@ Before using this script, ensure you have the following prerequisites:
    ```
 
 ## Required Inputs
-**Bootstrap Server:** The Kafka bootstrap server to connect to. It can be an IPv4 address or a valid fully qualified domain name (FQDN).
-**Bootstrap Port:** The port number for the Kafka bootstrap server.
-**Authentication Type:** 'kerberos' or 'scram' for Kerberos or SCRAM authentication.
+**Bootstrap Server:** The Kafka bootstrap server to connect to. It can be an IPv4 address or a valid fully qualified domain name (FQDN).  
+**Bootstrap Port:** The port number for the Kafka bootstrap server.  
+**Authentication Type:** 'kerberos' or 'scram' for Kerberos or SCRAM authentication.  
 
 ## Operations
 This script supports the following operations:
