@@ -8,6 +8,7 @@ This script is designed to simplify Kafka operations by setting up authenticatio
 - [Installation](#installation)
 - [Operations](#operations)
 - [Examples](#examples)
+- [Installation](#installation)
 
 ## Prerequisites
 
@@ -17,16 +18,23 @@ Before using this script, ensure you have the following prerequisites:
 - `kafka-topics.sh` and `kafka-acls.sh` commands available in your system PATH or provide the Kafka installation path when prompted.
 
 ## Installation
+### RHEL Systems
 
-1. Clone the repository:
+1. Download the RPM package from the [Releases](https://github.com/aashishchhabra/kafka-tools/releases) page.
 
-   ```bash
-   git clone https://github.com/aashishchhabra/kafka-suite.git
-   cd kafka-suite
-2. Ensure execute permissions for the script:
+2. Install the RPM package using the following command:
 
    ```bash
-   chmod +x kafka_operations.sh
+   sudo yum install -y https://github.com/aashishchhabra/kafka-tools/releases/download/{tag}/kafka-tools-{tag}-1.noarch.rpm
+   ```
+   Replace {tag} with the actual release tag.
+
+3. Verify the installation:
+
+   ```bash
+   kafka-tools --version
+   ```
+   This should display the installed version of the kafka-tools package.
 
 ## Operations
 This script supports the following operations:
