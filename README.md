@@ -1,11 +1,12 @@
 # Kafka Operations Script
 
-This script is designed to simplify Kafka operations by setting up authentication and executing various operations against a Kafka cluster.
+This script facilitates various Kafka operations based on user input. It supports setting up authentication, listing topics, describing topics, listing ACLs, creating topics, producing to topics, running producer performance tests, and running consumer performance tests.
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Required Inputs](#required-inputs)
 - [Operations](#operations)
 - [Examples](#examples)
 
@@ -27,13 +28,23 @@ Before using this script, ensure you have the following prerequisites:
 
    ```bash
    chmod +x kafka_operations.sh
+   ```
+
+## Required Inputs
+Bootstrap Server: The Kafka bootstrap server to connect to. It can be an IPv4 address or a valid fully qualified domain name (FQDN).
+Bootstrap Port: The port number for the Kafka bootstrap server.
+Authentication Type: 'kerberos' or 'scram' for Kerberos or SCRAM authentication.
 
 ## Operations
 This script supports the following operations:
 
-List Topics: Lists all topics on the Kafka cluster.
-Describe Topics: Describes a specific topic on the Kafka cluster.
-List ACLs: Lists ACLs (Access Control Lists) on the Kafka cluster.
+1. List Topics
+2. Describe Topics
+3. List ACLs
+4. Create Topic
+5. Produce to Topic
+6. Producer Perf Test
+7. Consumer Perf Test
 
 ## Examples
 ### Example 1: List Topics
@@ -41,21 +52,14 @@ List ACLs: Lists ACLs (Access Control Lists) on the Kafka cluster.
    ```bash
    ./kafka_operations.sh
    ```
-Follow the prompts and select the operation "list topics" to see a list of all topics on the Kafka cluster.
+Follow the prompts and select the operation "list topics" by entering 1 to see a list of all topics on the Kafka cluster.
 
 ### Example 2: Describe Topic
 
    ```bash
    ./kafka_operations.sh
    ```
-Follow the prompts, select the operation "describe topics," and provide the topic name when prompted to describe a specific topic.
-
-### Example 3: List ACLs
-
-   ```bash
-   ./kafka_operations.sh
-   ```
-Follow the prompts and select the operation "list acls" to see a list of ACLs on the Kafka cluster.
+Follow the prompts, select the operation "describe topics," by entering 2 and provide the topic name when prompted to describe a specific topic.
 
 
 
