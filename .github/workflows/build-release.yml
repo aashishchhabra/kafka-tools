@@ -28,7 +28,7 @@ jobs:
 
     - name: Prepare files
       run: |
-        cp -r ./kafka-tools ~/rpmbuild/SOURCES/
+        cp -r ../kafka-tools ~/rpmbuild/SOURCES/
         cd ~/rpmbuild/SOURCES/
         tar czvf kafka-tools-${GITHUB_REF##*/}.tar.gz kafka-tools
 
