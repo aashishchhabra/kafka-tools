@@ -22,6 +22,10 @@ jobs:
         sudo apt-get install -y rpm
         mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
+    - name: Debug Info
+      run: |
+        ls -R
+
     - name: Prepare files
       run: |
         cp -r ./kafka-tools ~/rpmbuild/SOURCES/
