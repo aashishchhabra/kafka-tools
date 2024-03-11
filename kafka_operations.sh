@@ -9,7 +9,7 @@ function display_help() {
     echo ""
     echo "Description:"
     echo "  This script sets up Kafka authentication based on the provided parameters and executes"
-    echo "  the requested operation against the specified Kafka bootstrap server."
+    echo "  various operations against the specified Kafka bootstrap server."
     echo ""
     echo "Required Inputs:"
     echo "  - Bootstrap Server: The Kafka bootstrap server to connect to. It can be an IPv4 address"
@@ -18,9 +18,13 @@ function display_help() {
     echo "  - Authentication Type: 'kerberos' or 'scram' for Kerberos or SCRAM authentication."
     echo ""
     echo "Available Operations:"
-    echo "  - list topics:     List all topics on the Kafka cluster."
-    echo "  - describe topics: Describe a specific topic on the Kafka cluster."
-    echo "  - list acls:       List ACLs (Access Control Lists) on the Kafka cluster."
+    echo "  1. List Topics"
+    echo "  2. Describe Topics"
+    echo "  3. List ACLs"
+    echo "  4. Create Topic"
+    echo "  5. Produce to Topic"
+    echo "  6. Producer Perf Test"
+    echo "  7. Consumer Perf Test"
     echo ""
     echo "Examples:"
     echo "  $0"
@@ -30,7 +34,7 @@ function display_help() {
     echo "    - Bootstrap Server: kafka.example.com"
     echo "    - Bootstrap Port:   9092"
     echo "    - Authentication Type: kerberos"
-    echo "    - Operation: list topics"
+    echo "    - Operation: 1"
     echo "    - Sets up Kerberos authentication and lists all topics on the Kafka cluster."
     exit 1
 }
@@ -161,22 +165,43 @@ fi
 setup_authentication "$auth_type"
 
 # Prompt for operation
-read -p "Enter Operation (list topics/describe topics/list acls): " operation
+read -p "Enter Operation (1-7): " operation
 
 # Execute the requested operation
 case "$operation" in
-    "list topics")
+    1)
         "$KAFKA_TOPICS_CMD" --bootstrap-server "$bootstrap_server:$bootstrap_port" --list --command-config "$client_properties_file"
         ;;
-    "describe topics")
+    2)
         read -p "Enter Topic Name: " topic_name
         "$KAFKA_TOPICS_CMD" --bootstrap-server "$bootstrap_server:$bootstrap_port" --describe --topic "$topic_name" --command-config "$client_properties_file"
         ;;
-    "list acls")
+    3)
         "$KAFKA_ACLS_CMD" --bootstrap-server "$bootstrap_server:$bootstrap_port" --list --command-config "$client_properties_file"
         ;;
+    4)
+        read -p "Enter Topic Name: " new_topic_name
+        "$KAFKA_TOPICS_CMD" --bootstrap-server "$bootstrap_server:$bootstrap_port" --create --topic "$new_topic_name" --partitions 3 --replication-factor 3 --command-config "$client_properties_file"
+        ;;
+    5)
+        read -p "Enter Topic Name: " producer_topic_name
+        "$KAFKA_TOPICS_CMD" --bootstrap-server "$bootstrap_server:$bootstrap_port" --describe --topic "$producer_topic_name" --command-config "$client_properties_file"
+        # Launch console producer
+        kafka-console-producer.sh --broker-list "$bootstrap_server:$bootstrap_port" --topic "$producer_topic_name" --producer.config "$client_properties_file"
+        ;;
+    6)
+        read -p "Enter Topic Name: " perf_test_topic_name
+        read -p "Enter Number of Records: " num_records
+        read -p "Enter Record Size (bytes): " record_size
+        read -p "Enter Throughput (records per second): " throughput
+        kafka-producer-perf-test.sh --topic "$perf_test_topic_name" --num-records "$num_records" --record-size "$record_size" --throughput "$throughput" --producer.config "$client_properties_file" --producer-props acks=all
+        ;;
+    7)
+        read -p "Enter Topic Name: " consumer_perf_test_topic_name
+        kafka-consumer-perf-test.sh --topic "$consumer_perf_test_topic_name" --messages "$num_records" --show-detailed-stats --consumer.config "$client_properties_file"
+        ;;
     *)
-        echo "Error: Invalid operation. Please use 'list topics', 'describe topics', or 'list acls'."
+        echo "Error: Invalid operation. Please use numbers 1-7."
         exit 1
         ;;
 esac
