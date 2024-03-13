@@ -98,6 +98,22 @@ function setup_authentication() {
     esac
 }
 
+# Function to create ACLs for producer and consumer
+function create_acls() {
+    local topic_name=$1
+    local scram_user_name=$2
+
+    # Adding ACL for producer
+    "$KAFKA_ACLS_CMD" --bootstrap-server "$bootstrap_server:$bootstrap_port" \
+        --add --allow-principal "User:$scram_user_name" --operation Write --topic "$topic_name" \
+        --command-config "$client_properties_file"
+
+    # Adding ACL for consumer
+    "$KAFKA_ACLS_CMD" --bootstrap-server "$bootstrap_server:$bootstrap_port" \
+        --add --allow-principal "User:$scram_user_name" --operation Read --topic "$topic_name" \
+        --command-config "$client_properties_file"
+}
+
 # Check if the script is being run with arguments
 if [ "$#" -ne 0 ]; then
     display_help
@@ -164,8 +180,20 @@ fi
 # Setup authentication
 setup_authentication "$auth_type"
 
+# Display available operations
+echo "Available Operations:"
+echo "  1. List Topics"
+echo "  2. Describe Topics"
+echo "  3. List ACLs"
+echo "  4. Create Topic"
+echo "  5. Produce to Topic"
+echo "  6. Producer Perf Test"
+echo "  7. Consumer Perf Test"
+echo "  8. Create ACLs for Producer and Consumer"
+echo ""
+
 # Prompt for operation
-read -p "Enter Operation (1-7): " operation
+read -p "Enter Operation (1-8): " operation
 
 # Execute the requested operation
 case "$operation" in
@@ -200,8 +228,18 @@ case "$operation" in
         read -p "Enter Topic Name: " consumer_perf_test_topic_name
         kafka-consumer-perf-test.sh --topic "$consumer_perf_test_topic_name" --messages "$num_records" --show-detailed-stats --consumer.config "$client_properties_file"
         ;;
+    8)
+        read -p "Enter Topic Name: " acl_topic_name
+        read -p "Enter SCRAM User Name: " acl_user_name
+
+        # Setup authentication for the user
+        setup_authentication "scram"
+
+        # Create ACLs for producer and consumer
+        create_acls "$acl_topic_name" "$acl_user_name"
+        ;;
     *)
-        echo "Error: Invalid operation. Please use numbers 1-7."
+        echo "Error: Invalid operation. Please use numbers 1-8."
         exit 1
         ;;
 esac
