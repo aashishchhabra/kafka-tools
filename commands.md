@@ -1,4 +1,5 @@
 # Kafka Authentication Commands
+The paths used in the below document are relative to the repository and might require you to change them according to your environment.
 
 ## Kerberos Authentication
 
