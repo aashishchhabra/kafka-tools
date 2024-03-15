@@ -8,6 +8,11 @@
 
 ### Commands
 
+#### Export relevant jaas.conf file for configuring authentication mechanism as well as authencation credentials
+```bash
+export KAFKA_OPTS="-Djava.security.auth.login.config=./auth/kerberos/jaas.conf"
+```
+
 #### kafka-topics.sh
 
 ```bash
@@ -48,6 +53,11 @@ kafka-console-consumer.sh --bootstrap-server <broker-address> --topic <topic-nam
 - Kafka configured to use SCRAM authentication
 
 ### Commands
+
+#### Export relevant jaas.conf file for configuring authentication mechanism as well as authencation credentials
+```bash
+export KAFKA_OPTS="-Djava.security.auth.login.config=./auth/scram/jaas.conf"
+```
 
 #### kafka-topics.sh
 
