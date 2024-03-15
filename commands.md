@@ -26,7 +26,7 @@ kafka-topics.sh --bootstrap-server <broker-address> --delete --topic <topic-name
 #### kafka-producer-perf-test.sh
 
 ```bash
-kafka-producer-perf-test.sh --broker-list <broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --command-config auth/kerberos/client.properties
+kafka-producer-perf-test.sh --producer-props bootstrap.servers=<broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --command-config auth/kerberos/client.properties
 ```
 
 #### kafka-consumer-perf-test.sh
@@ -72,7 +72,7 @@ kafka-topics.sh --bootstrap-server <broker-address> --delete --topic <topic-name
 #### kafka-producer-perf-test.sh
 
 ```bash
-kafka-producer-perf-test.sh --broker-list <broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --command-config auth/scram/client.properties
+kafka-producer-perf-test.sh --producer-props bootstrap.servers=<broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --command-config auth/scram/client.properties
 ```
 
 #### kafka-consumer-perf-test.sh
