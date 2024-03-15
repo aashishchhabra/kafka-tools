@@ -26,13 +26,13 @@ kafka-topics.sh --bootstrap-server <broker-address> --delete --topic <topic-name
 #### kafka-producer-perf-test.sh
 
 ```bash
-kafka-producer-perf-test.sh --producer-props bootstrap.servers=<broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --command-config auth/kerberos/client.properties
+kafka-producer-perf-test.sh --producer-props bootstrap.servers=<broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --producer.config auth/kerberos/client.properties
 ```
 
 #### kafka-consumer-perf-test.sh
 
 ```bash
-kafka-consumer-perf-test.sh --broker-list <broker-list> --topic <topic-name> --messages <num-messages> --threads <num-threads> --command-config auth/kerberos/client.properties
+kafka-consumer-perf-test.sh --broker-list <broker-list> --topic <topic-name> --messages <num-messages> --threads <num-threads> --comnsumer.config auth/kerberos/client.properties
 ```
 
 #### kafka-console-producer.sh
@@ -72,13 +72,13 @@ kafka-topics.sh --bootstrap-server <broker-address> --delete --topic <topic-name
 #### kafka-producer-perf-test.sh
 
 ```bash
-kafka-producer-perf-test.sh --producer-props bootstrap.servers=<broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --command-config auth/scram/client.properties
+kafka-producer-perf-test.sh --producer-props bootstrap.servers=<broker-list> --topic <topic-name> --num-records <num-records> --record-size <record-size> --throughput <throughput> --producer.config auth/scram/client.properties
 ```
 
 #### kafka-consumer-perf-test.sh
 
 ```bash
-kafka-consumer-perf-test.sh --broker-list <broker-list> --topic <topic-name> --messages <num-messages> --threads <num-threads> --command-config auth/scram/client.properties
+kafka-consumer-perf-test.sh --broker-list <broker-list> --topic <topic-name> --messages <num-messages> --threads <num-threads> --consumer.config auth/scram/client.properties
 ```
 
 #### kafka-console-producer.sh
